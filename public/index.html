@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarQR.link - Мы скоро запускаемся!</title>
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            padding: 20px;
+            background: #007BFF;
+            color: white;
+        }
+
+        .hero {
+            padding: 50px 20px;
+            background: #e0e7ff;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin: 0 0 10px;
+        }
+
+        .description {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .countdown {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        #timer span {
+            padding: 5px 10px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .subscribe {
+            margin: 20px 0;
+        }
+
+        .subscribe input[type="email"] {
+            padding: 10px;
+            width: 300px;
+            max-width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .subscribe button {
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="assets/logo.png" alt="CarQR.link" style="max-width: 150px;">
+    </header>
+
+    <section class="hero">
+        <h1>Мы скоро запускаемся!</h1>
+        <p class="description">Считай QR-код или вводи номер автомобиля, чтобы легко связаться с водителем.</p>
+        <div class="countdown">
+            <h2>До запуска осталось:</h2>
+            <div id="timer">
+                <span id="days">00</span> дней
+                <span id="hours">00</span> часов
+                <span id="minutes">00</span> минут
+                <span id="seconds">00</span> секунд
+            </div>
+        </div>
+        <div class="subscribe">
+            <form id="subscribeForm" hx-post="/api/subscribe">
+                <input type="email" name="email" id="email" placeholder="Введите ваш email" required>
+                <button type="submit">Узнать первым!</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>Следите за нами в социальных сетях и будьте в курсе новостей!</p>
+        <p>© 2024 CarQR.link. Все права защищены.</p>
+    </footer>
+
+
+    <script lang="javascript">
+        const launchDate = new Date('October 1, 2024 00:00:00').getTime();
+
+        const tick = () => {
+            // Текущее время
+            const now = new Date().getTime();
+
+            // Разница между текущим временем и временем запуска
+            const timeLeft = launchDate - now;
+
+            // Расчет дней, часов, минут и секунд
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Отображение результатов в соответствующих элементах
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            // Остановка таймера, если время закончилось
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.getElementById('timer').innerHTML = "Запуск состоялся!";
+            }
+        };
+
+        // Функция для обновления таймера каждую секунду
+        const countdown = setInterval(() => {
+            tick();
+        }, 1000);
+
+        window.onload = function () {
+            tick();
+        };
+    </script>
+</body>
+
+</html>
