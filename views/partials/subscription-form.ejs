@@ -1,0 +1,13 @@
+<% if (context.success) { %>
+    <div class="success-message" style="margin-top: 20px; color: green;">
+        Спасибо за подписку! Вы будете первыми узнавать о запуске проекта.
+    </div>
+<% } else { %>
+    <form id="subscribeForm" hx-post="/api/subscribe" hx-target="#subscribe">
+        <input type="email" name="email" id="email" value="<%= context.email %>" placeholder="Введите ваш email" required>
+        <button type="submit">Узнать первым!</button>
+    </form>
+    <% if (context.error) { %>
+        <div class="error-message" style="margin-top: 20px; color: red;"><%- context.error %></div>
+    <% } %>
+<% } %>

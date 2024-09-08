@@ -96,7 +96,7 @@
 
     <section class="hero">
         <h1>Мы скоро запускаемся!</h1>
-        <p class="description">Считай QR-код или вводи номер автомобиля, чтобы легко связаться с водителем.</p>
+        <p class="description">Считайте QR, чтобы вызвать водителя мешающего авто!</p>
         <div class="countdown">
             <h2>До запуска осталось:</h2>
             <div id="timer">
@@ -106,11 +106,8 @@
                 <span id="seconds">00</span> секунд
             </div>
         </div>
-        <div class="subscribe">
-            <form id="subscribeForm" hx-post="/api/subscribe">
-                <input type="email" name="email" id="email" placeholder="Введите ваш email" required>
-                <button type="submit">Узнать первым!</button>
-            </form>
+        <div class="subscribe" id="subscribe">
+            <%- include('partials/subscription-form', { context: {} }) %>
         </div>
     </section>
 

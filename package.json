@@ -4,17 +4,26 @@
   "type": "module",
   "scripts": {
     "start": "bun run src/index.ts",
-    "dev": "bun --hot run src/index.ts"
+    "dev": "bun --hot run src/index.ts",
+    "db:schema": "kysely-codegen --dialect=mysql --out-file=./src/db/types.ts",
+    "db:migrate": "kysely migrate latest",
+    "db:rollback": "kysely migrate down"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "kysely-codegen": "^0.16.5",
+    "kysely-ctl": "^0.9.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "express-promise-router": "^4.1.1"
+    "express-promise-router": "^4.1.1",
+    "kysely": "^0.27.4",
+    "mysql2": "^3.11.0",
+    "zod": "^3.23.8"
   }
 }

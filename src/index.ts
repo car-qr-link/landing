@@ -1,13 +1,19 @@
 import express from "express";
 
 import api from "./api";
+import config from "./config";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = config.port;
+
+app.set("view engine", "ejs");
 
 app.use(express.static("public"));
-app.use("/api", api);
+app.get('/', (req, res) => {
+    res.render('index', {});
+});
 
+app.use("/api", api);
 
 app.use((req, res) => {
     res.redirect("/");
