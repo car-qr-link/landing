@@ -1,24 +1,22 @@
-import express from "express";
-
-import api from "./api";
+import app from "./app";
 import config from "./config";
+import migrator from "./db/migrator";
+import logger from "./logger";
 
-const app = express();
-const port = config.port;
+async function main() {
+    const port = config.port;
 
-app.set("view engine", "ejs");
+    const migrationResults = await migrator.migrateToLatest();
+    if (migrationResults.error) {
+        logger.error(migrationResults.error, 'Migration failed');
+        process.exit(1);
+    } else {
+        logger.info(migrationResults.results, 'Migration successful');
+    }
 
-app.use(express.static("public"));
-app.get('/', (req, res) => {
-    res.render('index', {});
-});
+    app.listen(port, () => {
+        logger.info(`Listening on port ${port}`);
+    });
+};
 
-app.use("/api", api);
-
-app.use((req, res) => {
-    res.redirect("/");
-});
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port}...`);
-});
+main().catch(console.error);
