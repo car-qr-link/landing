@@ -1,0 +1,28 @@
+services:
+  app:
+    image: ghcr.io/car-qr-link/landing:lastest
+    networks:
+      - internal
+      - public
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=public"
+        - "traefik.http.routers.landing.rule=Host(`carqr.link`)"
+        - "traefik.http.routers.landing.entrypoints=https"
+        - "traefik.http.routers.landing.tls.certresolver=le"
+        - "traefik.http.services.landing.loadbalancer.server.port=3000"
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+networks:
+  internal:
+    external: true
+  public:
+    external: true

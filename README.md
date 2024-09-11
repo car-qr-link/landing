@@ -1,15 +1,22 @@
-# @car-qr-link/landing
+# Стартовая страница
 
-To install dependencies:
+Предназначена для отображения информации о проекте, дате старта и новостей. Также производится сбор контактов заинтересованных пользователей.
 
-```bash
-bun install
-```
+## Используемые технологии, библиотеки
 
-To run:
+- [Bun](https://bun.sh) - Runtime
+- [Express](https://expressjs.com) - Web server
+- [Htmx](https://htmx.org) - Dynamic content
+- [Kysely](https://kysely.dev) - Database query builder
+- [Pino](https://getpino.io) - Logging
+- [Zod](https://zod.dev) - Data validation
 
-```bash
-bun run index.ts
-```
+## Настройки
 
-This project was created using `bun init` in bun v1.0.15. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Для настройки сервиса используются переменные окружения:
+
+| Наименование | Описание                          | По умолчанию                                   |
+| ------------ | --------------------------------- | ---------------------------------------------- |
+| PORT         | Порт сервера.                     | 3000                                           |
+| DATABASE_URL | Строка подключения к базе данных. | mysql://landing:landing@localhost:3306/landing |
+| NODE_ENV     | Режим работы.                     | development                                    |
