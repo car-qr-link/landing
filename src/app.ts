@@ -6,7 +6,7 @@ import api from "./api";
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("trust proxy", "uniquelocal");
+app.set("trust proxy", true);
 
 app.use(pino());
 app.use(express.static("public"));
