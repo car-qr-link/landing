@@ -2,6 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerModule } from 'nestjs-pino';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { dataSourceOptions } from './db';
+import { DataSourceOptions } from 'typeorm';
 
 @Module({
   imports: [
@@ -15,8 +19,10 @@ import { LoggerModule } from 'nestjs-pino';
             : undefined,
       },
     }),
+    ConfigModule,
+    TypeOrmModule.forRoot(dataSourceOptions as unknown as DataSourceOptions),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
