@@ -7,7 +7,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=mysql://landing:landing@db:3306/landing
+      - DATABASE_URL=mariadb://landing:landing@db:3306/landing
     depends_on:
       db:
         condition: service_healthy

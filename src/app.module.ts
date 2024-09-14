@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SubscriptionsModule } from './core/subscriptions/subscriptions.module';
 import { dataSourceOptions } from './db';
+import { URL } from 'url';
 
 @Module({
   imports: [
@@ -26,14 +27,10 @@ import { dataSourceOptions } from './db';
       inject: [ConfigService],
       useFactory: (_: ConfigService) => ({
         ...dataSourceOptions,
-        type: 'mysql',
-        host: process.env.DB_HOST || 'localhost',
-        port: +(process.env.DB_PORT || 3306),
-        username: process.env.DB_USERNAME || 'car-qr-link/landing',
-        password: process.env.DB_PASSWORD || 'car-qr-link/landing',
-        database: process.env.DB_NAME || 'car-qr-link/landing',
-        synchronize: process.env.NODE_ENV !== 'production',
+        type: new URL(process.env.DATABASE_URL || dataSourceOptions.url).protocol.replaceAll(':', ''),
+        url: process.env.DATABASE_URL,
 
+        synchronize: process.env.NODE_ENV !== 'production',
         migrationsRun: process.env.NODE_ENV === 'production',
       } as unknown as DataSourceOptions)
     }),

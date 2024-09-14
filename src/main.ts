@@ -11,6 +11,7 @@ async function bootstrap() {
   app.disable('x-powered-by');
   app.set('trust proxy', true);
 
+  app.enableShutdownHooks();
   app.useLogger(app.get(Logger));
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
