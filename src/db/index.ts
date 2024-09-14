@@ -2,17 +2,14 @@ import { join } from "path";
 import { DataSource, DataSourceOptions } from "typeorm";
 
 export const dataSourceOptions = {
-    type: 'mysql',
-    host: process.env.DB_HOST || 'localhost',
-    port: +(process.env.DB_PORT || 3306),
-    username: process.env.DB_USERNAME || 'car-qr-link/landing',
-    password: process.env.DB_PASSWORD || 'car-qr-link/landing',
-    database: process.env.DB_NAME || 'car-qr-link/landing',
-    entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
-    synchronize: process.env.NODE_ENV !== 'production',
+    type: 'mariadb',
+    url: process.env.DATABASE_URL || 'mariadb://landing:landing@localhost:3306/landing',
 
-    migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
+    synchronize: process.env.NODE_ENV !== 'production',
     migrationsRun: process.env.NODE_ENV === 'production',
+
+    entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
+    migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
 };
 
 const dataSource = new DataSource(dataSourceOptions as unknown as DataSourceOptions);
