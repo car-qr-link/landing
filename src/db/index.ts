@@ -8,10 +8,10 @@ export const dataSourceOptions = {
     username: process.env.DB_USERNAME || 'car-qr-link/landing',
     password: process.env.DB_PASSWORD || 'car-qr-link/landing',
     database: process.env.DB_NAME || 'car-qr-link/landing',
-    entities: join(__dirname, '../**/*.entity{.ts,.js}'),
+    entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
     synchronize: process.env.NODE_ENV !== 'production',
 
-    migrations: join(__dirname, '../migrations/*{.ts,.js}'),
+    migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
     migrationsRun: process.env.NODE_ENV === 'production',
 };
 

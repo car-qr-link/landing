@@ -4,10 +4,11 @@
 GET {{baseUrl}} HTTP/1.1
 
 ###
-POST {{baseUrl}}/api/subscribe HTTP/1.1
+POST {{baseUrl}}/subscribe HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
+HX-Request: true
 
-email=test
+email=test{{$randomInt 1 10}}@example.com
 
 ###
 GET {{baseUrl}}/not-found HTTP/1.1
