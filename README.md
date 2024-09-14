@@ -4,12 +4,13 @@
 
 ## Используемые технологии, библиотеки
 
-- [Bun](https://bun.sh) - Runtime
-- [Express](https://expressjs.com) - Web server
-- [Htmx](https://htmx.org) - Dynamic content
-- [Kysely](https://kysely.dev) - Database query builder
-- [Pino](https://getpino.io) - Logging
-- [Zod](https://zod.dev) - Data validation
+- [EJS](https://ejs.co) - шаблонизатор
+- [htmx](https://htmx.org) - поддержка htmx
+- [MariaDB](https://mariadb.com) - база данных
+- [NestJS](https://nestjs.com) - фреймворк для создания серверов
+- [Pino](https://getpino.io) - логирование
+- [TypeORM](https://typeorm.io) - ORM для работы с базой данных
+- [Zod](https://zod.dev) - валидация
 
 ## Настройки
 
