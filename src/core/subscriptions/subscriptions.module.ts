@@ -4,8 +4,8 @@ import { Subscription } from './entities/subscription.entity';
 import { SubscriptionsService } from './subscriptions.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Subscription])],
-    providers: [SubscriptionsService],
-    exports: [SubscriptionsService],
+  imports: [TypeOrmModule.forFeature([Subscription])],
+  providers: [SubscriptionsService],
+  exports: [SubscriptionsService],
 })
-export class SubscriptionsModule { }
+export class SubscriptionsModule {}

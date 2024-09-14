@@ -4,7 +4,7 @@
     </div>
 <% } else { %>
     <form id="subscribeForm" hx-post="/subscribe" hx-target="#subscribe">
-        <input type="email" name="email" id="email" value="<%= context.email %>" placeholder="Введите ваш email" required>
+        <input type="email" name="email" id="email" value="<%= context.email %>" placeholder="hello@carqr.link" required>
         <button type="submit">Узнать первым!</button>
     </form>
     <% if (context.error) { %>

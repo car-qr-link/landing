@@ -1,105 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <title>CarQR.link - Мы скоро запускаемся!</title>
-    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            padding: 20px;
-            background: #007BFF;
-            color: white;
-        }
-
-        .hero {
-            padding: 50px 20px;
-            background: #e0e7ff;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-            margin: 0 0 10px;
-        }
-
-        .description {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .countdown {
-            font-size: 24px;
-            color: #333;
-            margin: 20px 0;
-        }
-
-        #timer {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            font-weight: bold;
-        }
-
-        #timer span {
-            padding: 5px 10px;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .subscribe {
-            margin: 20px 0;
-        }
-
-        .subscribe input[type="email"] {
-            padding: 10px;
-            width: 300px;
-            max-width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-
-        .subscribe button {
-            padding: 10px 20px;
-            border: none;
-            background: #007BFF;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        footer {
-            background: #333;
-            color: #fff;
-            padding: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <img src="assets/logo.png" alt="CarQR.link" style="max-width: 150px;">
-    </header>
+<%- include('partials/header', { context: {} }) %>
 
     <section class="hero">
         <h1>Мы скоро запускаемся!</h1>
@@ -114,15 +13,9 @@
             </div>
         </div>
         <div class="subscribe" id="subscribe">
-            <%- include('partials/subscription-form', { context: {} }) %>
+            <%- include('partials/forms/subscription', { context: {} }) %>
         </div>
     </section>
-
-    <footer>
-        <p>Следите за нами в социальных сетях и будьте в курсе новостей!</p>
-        <p>© 2024 CarQR.link. Все права защищены.</p>
-    </footer>
-
 
     <script lang="javascript">
         const launchDate = new Date('October 1, 2024 00:00:00').getTime();
@@ -162,6 +55,5 @@
             tick();
         };
     </script>
-</body>
 
-</html>
+    <%- include('partials/footer', { context: {} }) %>
