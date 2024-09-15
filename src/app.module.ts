@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SubscriptionsModule } from './core/subscriptions/subscriptions.module';
 import { dataSourceOptions } from './db';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -37,8 +38,9 @@ import { dataSourceOptions } from './db';
         }) as unknown as DataSourceOptions,
     }),
     SubscriptionsModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

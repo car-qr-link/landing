@@ -7,12 +7,16 @@ import {
   UnsubscribeRequestSchema,
 } from './app.dto';
 import { SubscriptionsService } from './core/subscriptions/subscriptions.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
 
-  constructor(private readonly subscriptions: SubscriptionsService) {}
+  constructor(
+    private readonly subscriptions: SubscriptionsService,
+    private readonly notifications: NotificationsService,
+  ) { }
 
   async subscribe(src: SubscribeRequest) {
     const context: { success: boolean; error: any; email: string } = {
@@ -41,6 +45,15 @@ export class AppService {
           'Что-то пошло не так! Напишите нам: <a href="mailto:admin@carqr.link?subject=Ошибка на сайте">admin@carqr.link</a>';
         this.logger.error(error);
       }
+    }
+
+    try {
+      await this.notifications.send(
+        context.email,
+        "<p>Спасибо за подписку на новости проекта.</p><p>Если это были не Вы, то отменить подписку можно по ссылке: https://carqr.link/unsubscribe</p>"
+      );
+    } catch (error) {
+      this.logger.error(error);
     }
 
     return { context };
