@@ -7,6 +7,7 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL}
+      - BROKER_URL=${BROKER_URL}
     deploy:
       labels:
         - "traefik.enable=true"
