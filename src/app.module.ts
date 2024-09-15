@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { SubscriptionsModule } from './core/subscriptions/subscriptions.module';
 import { dataSourceOptions } from './db';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -37,6 +38,10 @@ import { NotificationsModule } from './notifications/notifications.module';
           migrationsRun: process.env.NODE_ENV === 'production',
         }) as unknown as DataSourceOptions,
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 1,
+    }]),
     SubscriptionsModule,
     NotificationsModule,
   ],

@@ -1,13 +1,14 @@
-import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { SubscribeRequest, UnsubscribeRequest } from './app.dto';
 import { AppService } from './app.service';
 import { Htmx } from './htmx/htmx.decorator';
 import { HtmxHeaders } from './htmx/htmx.headers';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   @Render('index')
@@ -16,6 +17,7 @@ export class AppController {
   }
 
   @Post('subscribe')
+  @UseGuards(ThrottlerGuard)
   async subscribe(
     @Htmx() htmx: HtmxHeaders,
     @Body() body: SubscribeRequest,
@@ -29,7 +31,7 @@ export class AppController {
 
   @Get('unsubscribe')
   @Render('unsubscribe')
-  async unsubscribe() {}
+  async unsubscribe() { }
 
   @Post('unsubscribe')
   async unsubscribePost(
