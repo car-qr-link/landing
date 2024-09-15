@@ -6,9 +6,7 @@ import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './core/filters/exceptions.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    bufferLogs: process.env.NODE_ENV === 'production',
-  });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.disable('x-powered-by');
   app.set('trust proxy', true);
 
