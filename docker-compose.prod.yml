@@ -15,6 +15,9 @@ services:
         - "traefik.http.routers.landing.rule=Host(`carqr.link`)"
         - "traefik.http.routers.landing.entrypoints=https"
         - "traefik.http.routers.landing.tls.certresolver=le"
+        - "traefik.http.routers.landing-ru.rule=Host(`xn--80ajbz7a7a.xn--p1ai`)"
+        - "traefik.http.routers.landing-ru.entrypoints=https"
+        - "traefik.http.routers.landing-ru.tls.certresolver=le"
         - "traefik.http.services.landing.loadbalancer.server.port=3000"
       resources:
         limits:
