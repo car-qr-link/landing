@@ -16,7 +16,7 @@ export class AppService {
   constructor(
     private readonly subscriptions: SubscriptionsService,
     private readonly notifications: NotificationsService,
-  ) { }
+  ) {}
 
   async subscribe(src: SubscribeRequest) {
     const context: { success: boolean; error: any; email: string } = {
@@ -50,7 +50,7 @@ export class AppService {
     try {
       await this.notifications.send(
         context.email,
-        "<p>Спасибо за подписку на новости проекта.</p><p>Если это были не Вы, то отменить подписку можно по ссылке: https://carqr.link/unsubscribe</p>"
+        '<p>Спасибо за подписку на новости проекта.</p><p>Если это были не Вы, то отменить подписку можно по ссылке: https://carqr.link/unsubscribe</p>',
       );
     } catch (error) {
       this.logger.error(error);

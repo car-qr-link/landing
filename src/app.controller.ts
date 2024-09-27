@@ -1,49 +1,38 @@
-import { Body, Controller, Get, Post, Render, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { SubscribeRequest, UnsubscribeRequest } from './app.dto';
 import { AppService } from './app.service';
-import { Htmx } from './htmx/htmx.decorator';
-import { HtmxHeaders } from './htmx/htmx.headers';
-import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   @Render('index')
   getHello() {
-    return {};
+    return { context: {} };
   }
 
   @Post('subscribe')
   @UseGuards(ThrottlerGuard)
-  async subscribe(
-    @Htmx() htmx: HtmxHeaders,
-    @Body() body: SubscribeRequest,
-    @Res() res: Response,
-  ) {
+  @Render('index')
+  async subscribe(@Body() body: SubscribeRequest) {
     const data = await this.appService.subscribe(body);
-    const template = htmx.request ? 'partials/forms/subscription' : 'index';
 
-    return res.render(template, data);
+    return data;
   }
 
   @Get('unsubscribe')
   @Render('unsubscribe')
-  async unsubscribe() { }
+  async unsubscribe() {
+    return { context: {} };
+  }
 
   @Post('unsubscribe')
-  async unsubscribePost(
-    @Htmx() htmx: HtmxHeaders,
-    @Body() body: UnsubscribeRequest,
-    @Res() res: Response,
-  ) {
+  @Render('unsubscribe')
+  async unsubscribePost(@Body() body: UnsubscribeRequest) {
     const data = await this.appService.unsubscribe(body);
-    const template = htmx.request
-      ? 'partials/forms/unsubscribe'
-      : 'unsubscribe';
 
-    return res.render(template, data);
+    return data;
   }
 }
