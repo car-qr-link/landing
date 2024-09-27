@@ -12,13 +12,23 @@
                 <span id="seconds">00</span> секунд
             </div>
         </div>
-        <div class="subscribe" id="subscribe">
-            <%- include('partials/forms/subscription', { context: {} }) %>
-        </div>
+        <% if (context.success) { %>
+            <div class="success-message" style="margin-top: 20px; color: green;">
+                Спасибо за подписку! Вы первым узнаете о запуске проекта.
+            </div>
+        <% } else { %>
+            <form method="post" action="/subscribe" class="subscribe">
+                <input type="email" name="email" id="email" value="<%= context.email %>" placeholder="привет@мешает.рф" required>
+                <button type="submit">Узнать первым!</button>
+            </form>
+            <% if (context.error) { %>
+                <div class="error-message" style="margin-top: 20px; color: red;"><%- context.error %></div>
+            <% } %>
+        <% } %>        
     </section>
 
     <script lang="javascript">
-        const launchDate = new Date('October 1, 2024 00:00:00').getTime();
+        const launchDate = new Date('November 1, 2024 00:00:00').getTime();
 
         const tick = () => {
             // Текущее время
@@ -56,4 +66,4 @@
         };
     </script>
 
-    <%- include('partials/footer', { context: {} }) %>
+<%- include('partials/footer', { context: {} }) %>

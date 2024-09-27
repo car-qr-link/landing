@@ -1,53 +1,30 @@
 import {
-    ExceptionFilter,
-    Catch,
-    ArgumentsHost,
-    HttpException,
-    HttpStatus,
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { Request, RequestHandler } from 'express';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-    constructor(private readonly httpAdapterHost: HttpAdapterHost) { }
+  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
-    catch(exception: unknown, host: ArgumentsHost): void {
-        // In certain situations `httpAdapter` might not be available in the
-        // constructor method, thus we should resolve it here.
-        const { httpAdapter } = this.httpAdapterHost;
+  catch(exception: unknown, host: ArgumentsHost): void {
+    // In certain situations `httpAdapter` might not be available in the
+    // constructor method, thus we should resolve it here.
+    const { httpAdapter } = this.httpAdapterHost;
 
-        const ctx = host.switchToHttp();
+    const ctx = host.switchToHttp();
+    const res = ctx.getResponse();
 
-        const httpStatus =
-            exception instanceof HttpException
-                ? exception.getStatus()
-                : HttpStatus.INTERNAL_SERVER_ERROR;
+    const httpStatus =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        // const responseBody = {
-        //     statusCode: httpStatus,
-        //     timestamp: new Date().toISOString(),
-        //     path: httpAdapter.getRequestUrl(ctx.getRequest()),
-        // };
-
-        // httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
-
-        const isHtmxRequest = ctx.getRequest<Request>().headers['hx-request'] === 'true';
-        if (isHtmxRequest) {
-            httpAdapter.setHeader(ctx.getResponse(), 'HX-Retarget', '#content');
-            httpAdapter.render(
-                ctx.getResponse(),
-                'partials/error-message',
-                { context: { status: httpStatus, message: exception } }
-            );
-            return;
-        }
-
-
-        httpAdapter.render(
-            ctx.getResponse(),
-            'error',
-            { context: { status: httpStatus, message: exception } }
-        );
-    }
+    httpAdapter.status(res, httpStatus);
+    httpAdapter.render(res, 'error', { body: { error: exception } });
+  }
 }

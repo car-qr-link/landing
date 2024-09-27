@@ -38,14 +38,16 @@ import { ThrottlerModule } from '@nestjs/throttler';
           migrationsRun: process.env.NODE_ENV === 'production',
         }) as unknown as DataSourceOptions,
     }),
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 1,
-    }]),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 1,
+      },
+    ]),
     SubscriptionsModule,
     NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

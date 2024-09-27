@@ -4,9 +4,19 @@
         <h1>Отписка от новостей</h1>
         <p>Введите ваш e-mail, чтобы отписаться от рассылки:</p>
 
-        <div class="subscribe" id="subscribe">
-            <%- include('partials/forms/unsubscribe', { context: {} }) %>
-        </div>
+        <% if (context.success) { %>
+            <div class="success-message" style="margin-top: 20px; color: green;">
+                Вы отписаны от новостей.
+            </div>
+        <% } else { %>
+            <form method="post" action="/unsubscribe" class="subscribe">
+                <input type="email" name="email" id="email" value="<%= context.email %>" placeholder="привет@мешает.рф" required>
+                <button type="submit">Отписаться</button>
+            </form>
+            <% if (context.error) { %>
+                <div class="error-message" style="margin-top: 20px; color: red;"><%- context.error %></div>
+            <% } %>
+        <% } %>        
     </section>
 
-    <%- include('partials/footer', { context: {} }) %>
+<%- include('partials/footer', { context: {} }) %>

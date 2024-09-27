@@ -1,5 +1,9 @@
 <%- include('partials/header', { context: {} }) %>
 
-<%- include('partials/error-message', { context: {} }) %>
+    <section class="hero">
+        <h1>Ошибка!</h1>
+        <p><%- body.error.message %></p>
+        <a href="/">Вернуться на главную</a>
+    </section>
 
-<%- include('partials/footer', { context: {} }) %>
+    <%- include('partials/footer', { context: {} }) %>
